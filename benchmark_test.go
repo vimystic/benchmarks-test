@@ -9,14 +9,15 @@ import (
 )
 
 func BenchmarkEncryptOAEP(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		// Generate an RSA key
-		privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
-		if err != nil {
-			b.Fatal("Error generating RSA key:", err)
-		}
+	// Generate an RSA key
+	privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
+	if err != nil {
+		b.Fatal("Error generating RSA key:", err)
+	}
 
-		nonceSize := 16
+	for n := 0; n < b.N; n++ {
+
+		nonceSize := 32
 
 		// Generate a random nonce
 		nonce := make([]byte, nonceSize)
