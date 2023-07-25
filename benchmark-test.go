@@ -8,8 +8,6 @@ import (
 	"testing"
 )
 
-// EncryptNonce generates an RSA key, a nonce, and encrypts the nonce with the generated public key.
-// It prints the private key and encrypted nonce.
 func BenchmarkEncryptOAEP(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		// Generate an RSA key
@@ -34,7 +32,7 @@ func BenchmarkEncryptOAEP(b *testing.B) {
 	}
 }
 
-func BenchmarkS(b *testing.B) {
+func BenchmarkSignPSS(b *testing.B) {
 	var err error
 	var hash [32]byte
 
