@@ -36,19 +36,15 @@ func BenchmarkSignPSS(b *testing.B) {
 	var err error
 	var hash [32]byte
 
-	// This is a dummy JSON string.
 	jsonStr := `{"PubKey": "encryptedPub", "Share": "encryptedShare", "OtherData": "dummyData"}`
 	jsonBytes := []byte(jsonStr)
 
-	// Generate an RSA key
 	privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		b.Fatal("Error generating RSA key:", err)
 	}
 
 	for n := 0; n < b.N; n++ {
-		// We copy jsonBytes into a new variable for each iteration to simulate the same conditions.
-		// This is necessary because rsa.SignPSS might modify the input data.
 		jsonBytesCopy := make([]byte, len(jsonBytes))
 		copy(jsonBytesCopy, jsonBytes)
 
