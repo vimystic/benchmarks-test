@@ -44,10 +44,9 @@ func BenchmarkSignPSS(b *testing.B) {
 	if err != nil {
 		b.Fatal("Error generating RSA key:", err)
 	}
-
+	jsonBytesCopy := make([]byte, len(jsonBytes))
+	copy(jsonBytesCopy, jsonBytes)
 	for n := 0; n < b.N; n++ {
-		jsonBytesCopy := make([]byte, len(jsonBytes))
-		copy(jsonBytesCopy, jsonBytes)
 
 		hash = sha256.Sum256(jsonBytesCopy)
 		_, err = rsa.SignPSS(rand.Reader, privateKey, crypto.SHA256, hash[:], nil)
