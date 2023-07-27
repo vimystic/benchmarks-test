@@ -14,13 +14,9 @@ func BenchmarkEncryptOAEP(b *testing.B) {
 	if err != nil {
 		b.Fatal("Error generating RSA key:", err)
 	}
-
+	// Generate a random nonce
+	nonce := make([]byte, 32)
 	for n := 0; n < b.N; n++ {
-
-		nonceSize := 32
-
-		// Generate a random nonce
-		nonce := make([]byte, nonceSize)
 		if _, err := rand.Read(nonce); err != nil {
 			b.Fatal("Error generating nonce:", err)
 		}
