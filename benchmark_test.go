@@ -14,6 +14,8 @@ func BenchmarkEncryptOAEP(b *testing.B) {
 	if err != nil {
 		b.Fatal("Error generating RSA key:", err)
 	}
+
+	privateKey.Precompute()
 	// Generate a random nonce
 	nonce := make([]byte, 32)
 	for n := 0; n < b.N; n++ {
@@ -40,6 +42,9 @@ func BenchmarkSignPSS(b *testing.B) {
 	if err != nil {
 		b.Fatal("Error generating RSA key:", err)
 	}
+
+	privateKey.Precompute()
+
 	jsonBytesCopy := make([]byte, len(jsonBytes))
 	copy(jsonBytesCopy, jsonBytes)
 	for n := 0; n < b.N; n++ {
